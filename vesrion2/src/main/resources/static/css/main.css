@@ -1,0 +1,41 @@
+div {
+    width: 1000px;
+    margin: 0 auto;
+}
+
+table, th, td {
+    border: solid 1px #000000;
+    border-collapse: collapse;
+    font-size: 18px;
+    padding: 5px;
+}
+
+h1 {
+    font-size: 24px;
+    color: cadetblue;
+}
+
+h2 {
+    color: chocolate;
+}
+
+a {
+    font-size: 24px;
+    text-decoration: none;
+}
+
+.block {
+    display: block;
+    max-width: 400px;
+    /*float: left;*/
+    border: solid 1px orange;
+    margin-right: 20px;
+    padding: 20px;
+}
+
+li {
+    list-style-type: none;
+    font-size: 24px;
+    color: chocolate;
+    text-align: center;
+}

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link th:href="@{/css/main.css}" rel="stylesheet"/>
+    <title th:text="${title}"></title>
+</head>
+<body>
+<div>
+    <a href="/tasks" title="Get tasks list">Tasks</a>
+    <a href="/rewards" title="Get rewards list">Rewards</a>
+    <h1 th:text="${title}"></h1>
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Total points</th>
+            <th>Name</th>
+        </tr>
+        <tr th:each="child: ${childs}">
+            <td th:text="${child.getName()}"/>
+            </td>
+            <td th:text="${child.getAge()}"/>
+            </td>
+            <td th:text="${child.getTotalPoints()}"/>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

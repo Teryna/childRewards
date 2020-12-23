@@ -12,7 +12,7 @@
 </head>
 <body>
 <div class="container">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light block">
         <div class="container-fluid">
             <a class="navbar-brand" href="/menu">
                 <img th:src="@{/img/star.svg}" alt="Star" width="30">
@@ -36,17 +36,19 @@
     </nav>
     <h1 th:text="${title}"></h1>
     <h2>Yours children</h2>
-    <ul class="block" th:each="user: ${users}">
+    <ul class="block" th:each="child: ${menu}">
         <a href="/profile">
-            <li th:text="${user.getName()}"/>
+            <li th:text="${child.getName()}"/>
             </li>
         </a>
-        <li th:text="${user.getAge()}"/>
+        <li th:text="${child.getAge()}"/>
         </li>
-        <li th:text="${user.getTotalPoints()}"/>
+        <li th:text="${child.getTotalPoints()}"/>
         </li>
     </ul>
-    <p class="block"><a href="#">Add new child</a></p>
+    <p class="block">
+        <a href="/childs">Add new child</a>
+    </p>
 </div>
 </body>
 </html>

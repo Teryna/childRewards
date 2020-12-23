@@ -4,18 +4,43 @@
     <meta charset="UTF-8">
     <link th:href="@{/css/main.css}" rel="stylesheet"/>
     <title th:text="${title}"></title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+    <title th:text="${title}"></title>
 </head>
 <body>
-<div>
-    <a href="/tasks" title="Get tasks list">Tasks</a>
-    <a href="/rewards" title="Get rewards list">Rewards</a>
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light block">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/menu">
+                <img th:src="@{/img/star.svg}" alt="Star" width="30">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/rewards">Rewards</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="/tasks">Tasks</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <h1 th:text="${title}"></h1>
-    <table>
+    <table class="block">
         <tr>
             <th>Name</th>
             <th>Age</th>
             <th>Total points</th>
-            <th>Name</th>
+            <th>&nbsp;</th>
         </tr>
         <tr th:each="child: ${childs}">
             <td th:text="${child.getName()}"/>
@@ -24,8 +49,24 @@
             </td>
             <td th:text="${child.getTotalPoints()}"/>
             </td>
+            <td class="action-column">
+                <a th:href="${'/childs/' + child.getId()}" class="btn btn-outline-info">
+                    <img th:src="@{/img/edit.svg}">
+                </a>
+                <a th:href="${'/childs/confirm/' + child.getId()}" class="btn btn-outline-danger">
+                    <img th:src="@{/img/trash.svg}">
+                </a>
+            </td>
         </tr>
     </table>
+    <div class="alert alert-danger confirmation-alert" role="alert" th:if="${confirmDelete != null}">
+        Do you want to delete <span class="delete-item" th:text="${confirmDelete != null ? confirmDelete.getName() : ''}"></span>?
+        <a th:href="${confirmDelete != null ? '/childs/delete/'+confirmDelete.getId() : '/childs'}" class="btn btn-danger">Delete</a>
+        <a href="/childs" class="btn btn-success">Cancel</a>
+    </div>
+    <p class="block">
+        <a href="/childs/0">Add new child</a>
+    </p>
 </div>
 </body>
 </html>

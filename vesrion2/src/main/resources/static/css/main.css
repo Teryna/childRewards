@@ -7,7 +7,7 @@ table, th, td {
     border: solid 1px #000000;
     border-collapse: collapse;
     font-size: 18px;
-    padding: 5px;
+    padding: 5px 25px;
 }
 
 h1 {
@@ -26,7 +26,7 @@ a {
 
 .block {
     display: block;
-    max-width: 400px;
+    max-width: 600px;
     /*float: left;*/
     border: solid 1px orange;
     margin-right: 20px;

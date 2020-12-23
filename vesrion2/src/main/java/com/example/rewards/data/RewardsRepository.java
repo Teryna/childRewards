@@ -1,7 +1,9 @@
 package com.example.rewards.data;
 
+import lombok.NonNull;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 
 import java.util.ArrayList;
@@ -24,6 +26,20 @@ public class RewardsRepository {
         }
     }
 
+    public Child getChild(int id) {
+        var session = factory.openSession();
+
+        try {
+            return session.get(Child.class, id);
+        } catch (HibernateException exception) {
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+
+        return null;
+    }
+
     public Iterable<Child> getChilds() {
         var session = factory.openSession();
 
@@ -42,7 +58,7 @@ public class RewardsRepository {
         var session = factory.openSession();
 
         try {
-            return session.createQuery("FROM Task").list();
+            return session.createQuery("from Task").list();
         } catch (HibernateException exception) {
             System.err.println(exception);
         } finally {
@@ -77,4 +93,63 @@ public class RewardsRepository {
         }
         return new ArrayList<>();
     }
+
+
+    public void save(@NonNull Object item) {
+        var session = factory.openSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            session.update(item);
+            tx.commit();
+        } catch (HibernateException exception) {
+            if(tx != null) {
+                tx.rollback();
+            }
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+    }
+
+    public void addChild(@NonNull Child child) {
+        var session = factory.openSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            session.save(child);
+            tx.commit();
+        } catch (HibernateException exception) {
+            if(tx != null) {
+                tx.rollback();
+            }
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+    }
+
+    public void deleteChild(int id) {
+        var session = factory.openSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            var child = session.get(Child.class, id);
+            if(child != null) {
+                session.delete(child);
+            }
+            tx.commit();
+        } catch (HibernateException exception) {
+            if(tx != null) {
+                tx.rollback();
+            }
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+    }
+
 }

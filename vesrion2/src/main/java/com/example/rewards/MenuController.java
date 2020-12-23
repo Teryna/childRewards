@@ -14,7 +14,7 @@ public class MenuController {
         var items = repo.getChilds();
 
         model.addAttribute("title", "Main menu");
-        model.addAttribute("users", items);
+        model.addAttribute("menu", items);
         return "menu";
     }
 

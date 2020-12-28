@@ -19,6 +19,7 @@ public class RewardsRepository {
                     addAnnotatedClass(Task.class).
                     addAnnotatedClass(Reward.class).
                     addAnnotatedClass(Profile.class).
+                    addAnnotatedClass(Schedule.class).
                     buildSessionFactory();
         } catch (Throwable ex) {
             System.err.println("Failed to create sessionFactory object." + ex);
@@ -93,6 +94,26 @@ public class RewardsRepository {
         }
         return new ArrayList<>();
     }
+
+    public Iterable<Schedule> getSchedule(int childId) {
+        var session = factory.openSession();
+
+        try {
+            var sql = "FROM Schedule where child_id = :childId";
+            var query = session.createQuery(sql);
+            query.setParameter("childId", childId);
+            var result = query.list();
+            return result;
+        } catch (HibernateException exception) {
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+
+        return new ArrayList<>();
+    }
+
+
 
 
     public void save(@NonNull Object item) {

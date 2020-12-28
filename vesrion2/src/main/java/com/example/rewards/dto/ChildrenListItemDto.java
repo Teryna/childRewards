@@ -8,5 +8,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class ChildrenListItemDto {
     private Child child;
-    private int childNumber;
+    private String dayOfWeek;
+    private String task;
+    private int points;
 }

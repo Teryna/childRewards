@@ -20,4 +20,8 @@ public class Reward {
     private String title;
     @Column(name = "points")
     private int points;
+
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name="child_id", referencedColumnName = "id", nullable = false)
+    private Child child;
 }

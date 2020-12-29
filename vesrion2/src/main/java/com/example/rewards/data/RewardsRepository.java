@@ -55,6 +55,20 @@ public class RewardsRepository {
         return new ArrayList<>();
     }
 
+    public Task getTask(int id) {
+        var session = factory.openSession();
+
+        try {
+            return session.get(Task.class, id);
+        } catch (HibernateException exception) {
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+
+        return null;
+    }
+
     public Iterable<Task> getTasks() {
         var session = factory.openSession();
 
@@ -113,6 +127,23 @@ public class RewardsRepository {
         return new ArrayList<>();
     }
 
+    public Iterable<Task> getChildTasks(int childId) {
+        var session = factory.openSession();
+
+        try {
+            var sql = "FROM Task where child_id = :childId";
+            var query = session.createQuery(sql);
+            query.setParameter("childId", childId);
+            var result = query.list();
+            return result;
+        } catch (HibernateException exception) {
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+
+        return new ArrayList<>();
+    }
 
 
 
@@ -172,5 +203,45 @@ public class RewardsRepository {
             session.close();
         }
     }
+
+    public void addTask(@NonNull Task task) {
+        var session = factory.openSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            session.save(task);
+            tx.commit();
+        } catch (HibernateException exception) {
+            if(tx != null) {
+                tx.rollback();
+            }
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+    }
+
+    public void deleteTask(int id) {
+        var session = factory.openSession();
+        Transaction tx = null;
+
+        try {
+            tx = session.beginTransaction();
+            var task = session.get(Task.class, id);
+            if(task != null) {
+                session.delete(task);
+            }
+            tx.commit();
+        } catch (HibernateException exception) {
+            if(tx != null) {
+                tx.rollback();
+            }
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+    }
+
 
 }

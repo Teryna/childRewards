@@ -48,10 +48,24 @@
             <td th:text="${task.getPoints()}"></td>
             <td th:text="${task.isItDone()}"></td>
             <td th:text="${task.getChild().getName()}"></td>
+
+            <td class="action-column">
+                <a th:href="${'/task/' + task.getId()}" class="btn btn-outline-info">
+                    <img th:src="@{/img/edit.svg}">
+                </a>
+                <a th:href="${'/task/confirm/' + task.getId()}" class="btn btn-outline-danger">
+                    <img th:src="@{/img/trash.svg}">
+                </a>
+            </td>
         </tr>
     </table>
+    <div class="alert alert-danger confirmation-alert" role="alert" th:if="${confirmDelete != null}">
+        Do you want to delete <span class="delete-item" th:text="${confirmDelete != null ? confirmDelete.getTitle() : ''}"></span>?
+        <a th:href="${confirmDelete != null ? '/task/delete/'+confirmDelete.getId() : '/tasks'}" class="btn btn-danger">Delete</a>
+        <a href="/tasks" class="btn btn-success">Cancel</a>
+    </div>
     <p class="block">
-        <a href="#">Add new task</a>
+        <a href="/tasks/0">Add new task</a>
     </p>
 </div>
 </body>

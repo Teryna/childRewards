@@ -23,7 +23,12 @@
         </li>
         <li th:text="${child.getTotalPoints()}"/>
         </li>
+        <a th:href="${'/tasks/'+child.getId()}">
+            Add new task
+        </a>
+
     </ul>
+
     <p class="block">
         <a href="/childs">Add new child</a>
     </p>

@@ -76,7 +76,7 @@ public class ChildController {
     }
 
     @GetMapping("/childs/confirm/{id}")
-    public String confirmCarDelete(@PathVariable int id, Model model) {
+    public String confirmChildDelete(@PathVariable int id, Model model) {
         var repo = new RewardsRepository();
         var items = repo.getChilds();
 

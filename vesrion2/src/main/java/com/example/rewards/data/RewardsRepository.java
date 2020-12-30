@@ -243,5 +243,22 @@ public class RewardsRepository {
         }
     }
 
+    public boolean markAsDone(int id) {                         // ?
+        var session = factory.openSession();
+        Transaction tx = null;
+
+        try {
+            var sql = "FROM Task where isItDone = :isItDone";
+            var query = session.createQuery(sql);
+            query.setParameter(1, Task.class);
+            return true;
+        } catch (HibernateException exception) {
+            System.err.println(exception);
+        } finally {
+            session.close();
+        }
+
+        return false;
+    }
 
 }

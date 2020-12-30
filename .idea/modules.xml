@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BonusPointsForChildren.iml" filepath="$PROJECT_DIR$/BonusPointsForChildren.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vesrion2/rewards.iml" filepath="$PROJECT_DIR$/vesrion2/rewards.iml" />
     </modules>
   </component>
 </project>

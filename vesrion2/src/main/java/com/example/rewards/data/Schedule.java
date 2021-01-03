@@ -16,10 +16,6 @@ public class Schedule {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
-    @Column(name = "child_name")
-    private String childName;
-    @Column(name = "task_title")
-    private String taskTitle;
     @Column(name = "dayOfWeek")
     private String dayOfWeek;
     @Column(name = "task_id", insertable=false, updatable=false)

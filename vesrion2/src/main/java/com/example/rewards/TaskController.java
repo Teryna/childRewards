@@ -14,7 +14,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class TaskController {
     @GetMapping("/tasks/{id}")
-    public String task(@PathVariable int id,Model model) {
+    public String task(@PathVariable int id, Model model) {
 
         var repo = new RewardsRepository();
         var items = repo.getChildTasks(id);
@@ -22,13 +22,14 @@ public class TaskController {
         model.addAttribute("title", "Tasks");
         model.addAttribute("tasks", items);
         return "tasks";
-    }
 
+    }
 
     @GetMapping("/task/{id}")
     public String editTask(@PathVariable int id, Model model) {
         var repo = new RewardsRepository();
         var task = repo.getTask(id);
+
 
         if(task == null) {
             task = new Task();
@@ -37,6 +38,7 @@ public class TaskController {
         model.addAttribute("title", task != null ? task.getTitle() : "");
         model.addAttribute("task", task);
         model.addAttribute("id", id);
+        model.addAttribute("childs", repo.getChilds());
 
         return "task_edit";
     }
@@ -58,7 +60,11 @@ public class TaskController {
 
         task.setTitle(dto.getTitle());
         task.setPoints(dto.getPoints());
-        task.setItDone(dto.isItDone());
+        task.setIsItDone(dto.getIsItDone());
+
+
+        var child = repo.getChild(dto.getChildId());
+        task.setChild(child);
 
         if(id != 0) {
             repo.save(task);
@@ -73,7 +79,7 @@ public class TaskController {
     public ModelAndView deleteTask(@PathVariable int id) {
         var repo = new RewardsRepository();
         repo.deleteTask(id);
-        return new ModelAndView("redirect:/tasks");
+        return new ModelAndView("redirect:/task/0");
     }
 
     @GetMapping("/task/confirm/{id}")

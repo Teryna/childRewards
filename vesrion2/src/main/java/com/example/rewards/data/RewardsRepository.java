@@ -260,5 +260,4 @@ public class RewardsRepository {
 
         return false;
     }
-
 }

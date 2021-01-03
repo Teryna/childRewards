@@ -13,7 +13,7 @@ public class ScheduleManager {
     }
 
     public Iterable<ChildrenListItemDto> getChildResults(int childId) {
-        var child = repo.getChild(childId);
+        var task = repo.getChildTasks(childId);
         var childResults = repo.getSchedule(childId);
 
         List<ChildrenListItemDto> items = new ArrayList<>();
@@ -36,10 +36,11 @@ public class ScheduleManager {
             items.add(result);
         }
         var dayOfWeek = schedule.getDayOfWeek();
-        var task = schedule.getTaskTitle();
+        var taskId = schedule.getTaskId();
         var points = schedule.getPoints();
+        var task = schedule.getTask();
 
-        return new ChildrenListItemDto(dayOfWeek, task, points);
+        return new ChildrenListItemDto(dayOfWeek, taskId, points, task);
     }
 
 }

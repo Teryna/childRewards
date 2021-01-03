@@ -41,12 +41,14 @@
             <th>Title</th>
             <th>Points</th>
             <th>Is it done</th>
+            <th>Total points</th>
             <th>Child</th>
         </tr>
         <tr th:each="task: ${tasks}">
             <td th:text="${task.getTitle()}"></td>
             <td th:text="${task.getPoints()}"></td>
-            <td th:text="${task.isItDone()}"></td>
+            <td th:text="${task.getIsItDone()}"></td>
+            <td th:text="${task.getTotalPoints()}"></td>
             <td th:text="${task.getChild().getName()}"></td>
 
             <td class="action-column">
@@ -61,11 +63,11 @@
     </table>
     <div class="alert alert-danger confirmation-alert" role="alert" th:if="${confirmDelete != null}">
         Do you want to delete <span class="delete-item" th:text="${confirmDelete != null ? confirmDelete.getTitle() : ''}"></span>?
-        <a th:href="${confirmDelete != null ? '/task/delete/'+confirmDelete.getId() : '/tasks'}" class="btn btn-danger">Delete</a>
-        <a href="/tasks" class="btn btn-success">Cancel</a>
+        <a th:href="${confirmDelete != null ? '/task/delete/'+confirmDelete.getId() : '/task/0'}" class="btn btn-danger">Delete</a>
+        <a href="/task/0" class="btn btn-success">Cancel</a>
     </div>
     <p class="block">
-        <a href="/tasks/0">Add new task</a>
+        <a href="/task/0">Add new task</a>
     </p>
 </div>
 </body>

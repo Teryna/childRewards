@@ -21,9 +21,20 @@ public class Task {
     @Column(name = "points")
     private int points;
     @Column(name = "isItDone")
-    private boolean isItDone;
+    private byte isItDone;
+    @Column(name = "totalPoints")
+    private int totalPoints;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name="child_id", referencedColumnName = "id", nullable = false)
     private Child child;
+
+
+    public int countOfPoints(int points, byte isItDone, int totalPoints) {
+        if(isItDone == 1) {
+            totalPoints = totalPoints + points;
+        }
+        return totalPoints;
+    }
+
 }

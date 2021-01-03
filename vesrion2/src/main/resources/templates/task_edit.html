@@ -46,8 +46,21 @@
         </div>
         <div class="mb-3">
             <label for="isItDone" class="form-label">Is it done</label>
-            <input type="text" class="block" name="isItDone" id="isItDone" th:value="${task.isItDone()}">
+            <input type="text" class="block" name="isItDone" id="isItDone" th:value="${task.getIsItDone()}">
         </div>
+
+
+        <div class="mb-3">
+            <label for="childId" class="form-label">Child</label>
+            <select name="childId" id="childId" class="block">
+                <option th:selected="${task.getChild() == null}" value="0" placeholder="Select child"></option>
+                <option th:selected="${task.getChild() != null && task.getChild().getName() == task.getChild()}"
+                        th:each="c: ${childs}" th:value="${c.getId()}" th:text="${c.getName()}">
+                </option>
+            </select>
+        </div>
+
+
 
         <a href="/menu" class="btn btn-danger" role="button">Cancel</a>
         <button type="submit" class="btn btn-success">Save</button>

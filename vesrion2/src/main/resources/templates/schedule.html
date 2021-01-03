@@ -39,12 +39,12 @@
     <table class="block">
         <tr>
             <th>Day</th>
-            <th>Task</th>
+            <th>Done tasks</th>
             <th>Points</th>
         </tr>
         <tr th:each="item: ${childResults}">
             <td th:text="${item.getDayOfWeek()}"></td>
-            <td th:text="${item.getTask()}"></td>
+            <td th:text="${item.getTask().getTitle()}"></td>
             <td th:text="${item.getPoints()}"></td>
         </tr>
     </table>
